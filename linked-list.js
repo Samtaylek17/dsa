@@ -81,6 +81,10 @@ class LinkedList {
 
 		while (node !== null) {
 			if (node.value < x) {
+				/* This is checking if the beforeStart is null. If it is, then we set the beforeStart to the node.
+				We also set the beforeEnd to the beforeStart. If the beforeStart is not null, then we set the
+				beforeEnd.next
+				to the node and set the beforeEnd to the node. */
 				if (beforeStart === null) {
 					beforeStart = node;
 					beforeEnd = beforeStart;
@@ -89,6 +93,10 @@ class LinkedList {
 					beforeEnd = node;
 				}
 			} else if (node.value === x) {
+				/* This is checking if the beforeStart is null. If it is, then we set the beforeStart to the node.
+				We also set the beforeEnd to the beforeStart. If the beforeStart is not null, then we set the
+				beforeEnd.next
+				to the node and set the beforeEnd to the node. */
 				if (equalStart === null) {
 					equalStart = node;
 					equalEnd = equalStart;
@@ -97,6 +105,10 @@ class LinkedList {
 					equalEnd = node;
 				}
 			} else {
+				/* This is checking if the afterStart is null. If it is, then we set the afterStart to the node.
+				We also set the afterEnd to the afterStart. If the afterStart is not null, then we set the
+				afterEnd.next
+				to the node and set the afterEnd to the node. */
 				if (afterStart === null) {
 					afterStart = node;
 					afterEnd = afterStart;
@@ -131,6 +143,61 @@ class LinkedList {
 		return beforeStart;
 	}
 
+	// circularList() {
+	// 	let node = this.head;
+	// 	if (!node || !node.next) {
+	// 		return null;
+	// 	}
+
+	// 	let slow = node.next;
+	// 	console.log(slow);
+	// 	let fast = node.next.next;
+
+	// 	while (fast && fast.next && slow !== fast) {
+	// 		slow = slow.next;
+	// 		fast = fast.next.next;
+	// 	}
+
+	// 	if (!fast || !fast.next) {
+	// 		return null;
+	// 	}
+
+	// 	slow = node;
+
+	// 	while (slow !== fast) {
+	// 		slow = slow.next;
+	// 		fast = fast.next;
+	// 	}
+
+	// 	console.log(slow);
+
+	// 	return slow;
+	// }
+
+	circularList() {
+		let node = this.head;
+		if (!node || !node.next) {
+			return null;
+		}
+
+		let visited = new Set();
+		let current = node;
+
+		while (current) {
+			if (visited.has(current)) {
+				return current;
+			}
+			visited.add(current);
+
+			if (current.next) {
+				current = current.next;
+				console.log(current);
+			}
+		}
+
+		return null;
+	}
+
 	print() {
 		let output = '';
 		let current = this.head;
@@ -155,14 +222,13 @@ function sumListReverse(num1, num2) {
 	let outputNum1 = [];
 	let outputNum2 = [];
 
-	while (current1) {
+	while (current1 && current2) {
 		outputNum1.push(current1.value);
 		current1 = current1.next;
-	}
-	while (current2) {
 		outputNum2.push(current2.value);
 		current2 = current2.next;
 	}
+
 	const digit1 = parseInt(outputNum1.reverse().join(''));
 	const digit2 = parseInt(outputNum2.reverse().join(''));
 
